@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.nyinyi.jobhub.response.Job
+import com.nyinyi.jobhub.utils.UrlLauncher
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +47,7 @@ fun JobDetailContent(
     onShareJob: (Job) -> Unit,
     processDescription: (String) -> String
 ) {
-//    val urlLauncher = remember { UrlLauncher.create() }
+    val urlLauncher = remember { UrlLauncher.create() }
     val scrollState = rememberScrollState()
 
     // Process the job description
@@ -235,7 +236,7 @@ fun JobDetailContent(
 
                         // Apply button
                         ElevatedButton(
-                            onClick = { /*urlLauncher.openUrl(job.url)*/ },
+                            onClick = { urlLauncher.openUrl(job.url) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 16.dp)

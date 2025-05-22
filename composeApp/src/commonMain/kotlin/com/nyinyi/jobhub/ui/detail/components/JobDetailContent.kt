@@ -162,7 +162,7 @@ fun JobDetailContent(
                             textAlign = TextAlign.Center,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+                            modifier = Modifier.padding(top = 8.dp)
                         )
                     }
 

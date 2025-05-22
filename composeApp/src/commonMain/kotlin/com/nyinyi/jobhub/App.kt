@@ -2,6 +2,7 @@ package com.nyinyi.jobhub
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -10,6 +11,7 @@ import com.nyinyi.jobhub.di.KoinInitializer
 import com.nyinyi.jobhub.navigation.route.Routes
 import com.nyinyi.jobhub.ui.detail.JobDetailScreen
 import com.nyinyi.jobhub.ui.list.JobListScreen
+import com.nyinyi.jobhub.utils.UrlLauncher
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 // Initialize Koin when the app starts
@@ -20,6 +22,7 @@ private val koinInitializer = KoinInitializer.init()
 fun App() {
     MaterialTheme {
         val navController = rememberNavController()
+        val urlLauncher = remember { UrlLauncher.create() }
 
         NavHost(
             navController = navController,
@@ -41,7 +44,7 @@ fun App() {
                     jobSlug = args.jobId,
                     onBackPressed = { navController.popBackStack() },
                     onShareJob = { job ->
-
+                        urlLauncher.openUrl(job.url)
                     }
                 )
             }

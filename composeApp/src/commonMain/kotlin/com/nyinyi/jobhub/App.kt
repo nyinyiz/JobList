@@ -7,8 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.nyinyi.jobhub.di.KoinInitializer
 import com.nyinyi.jobhub.navigation.route.Routes
+import com.nyinyi.jobhub.ui.detail.JobDetailScreen
 import com.nyinyi.jobhub.ui.list.JobListScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -30,8 +32,34 @@ fun App() {
                 popEnterTransition = { slideInHorizontally() }
             ) {
                 JobListScreen(onJobClick = { job ->
-
+                    navController.navigate(
+                        Routes.JobDetail(
+                            jobId = job.slug
+                        )
+                    )
                 })
+            }
+
+            composable<Routes.JobDetail>(
+                enterTransition = {
+                    slideInHorizontally { initialOffset ->
+                        initialOffset
+                    }
+                },
+                exitTransition = {
+                    slideOutHorizontally { initialOffset ->
+                        initialOffset
+                    }
+                }
+            ) { backStackEntry ->
+                val args = backStackEntry.toRoute<Routes.JobDetail>()
+                JobDetailScreen(
+                    jobSlug = args.jobId,
+                    onBackPressed = { navController.popBackStack() },
+                    onShareJob = { job ->
+
+                    }
+                )
             }
         }
     }

@@ -2,6 +2,7 @@ package com.nyinyi.jobhub.di
 
 import com.nyinyi.jobhub.api.JobService
 import com.nyinyi.jobhub.repository.JobRepository
+import com.nyinyi.jobhub.ui.detail.JobDetailViewModel
 import com.nyinyi.jobhub.ui.list.JobListViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
@@ -56,4 +57,5 @@ val appModule = module {
 
     // ViewModels
     viewModel { JobListViewModel(get()) }
+    viewModel { JobDetailViewModel(get()) }
 }

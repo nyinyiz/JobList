@@ -7,12 +7,11 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
     id("org.jetbrains.compose.hot-reload") version "1.0.0-alpha10"
 }
 
 kotlin {
-    val ktor_version: String by project
-    val koin_version: String by project
 
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -40,7 +39,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("io.ktor:ktor-client-android:2.3.7")
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -52,21 +51,25 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
+            // 
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+
             // koin
-            implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koin_version"))
-            implementation("io.insert-koin:koin-core")
+            implementation(libs.koin.compose.viewmodel)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
 
             // Ktor for API calls
-            implementation("io.ktor:ktor-client-core:${ktor_version}")
-            implementation("io.ktor:ktor-client-cio:${ktor_version}")
+            implementation(libs.bundles.ktor)
 
-            implementation("io.ktor:ktor-client-content-negotiation:${ktor_version}")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:${ktor_version}")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
-            implementation("io.ktor:ktor-client-logging:${ktor_version}")
-            implementation("io.ktor:ktor-client-auth:${ktor_version}")
             // Navigation
-            implementation("androidx.navigation:navigation-compose:2.7.0")
+            implementation(libs.jetbrains.compose.navigation)
+
+            implementation(libs.kotlinx.serialization.json)
+        }
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -1,23 +1,16 @@
 package com.nyinyi.jobhub
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.nyinyi.jobhub.di.KoinInitializer
-import org.jetbrains.compose.resources.painterResource
+import com.nyinyi.jobhub.navigation.route.Routes
+import com.nyinyi.jobhub.ui.list.JobListScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import jobhub.composeapp.generated.resources.Res
-import jobhub.composeapp.generated.resources.compose_multiplatform
 
 // Initialize Koin when the app starts
 private val koinInitializer = KoinInitializer.init()
@@ -26,22 +19,19 @@ private val koinInitializer = KoinInitializer.init()
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+        val navController = rememberNavController()
+
+        NavHost(
+            navController = navController,
+            startDestination = Routes.JobList
         ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
+            composable<Routes.JobList>(
+                exitTransition = { slideOutHorizontally() },
+                popEnterTransition = { slideInHorizontally() }
+            ) {
+                JobListScreen(onJobClick = { job ->
+
+                })
             }
         }
     }

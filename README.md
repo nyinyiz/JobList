@@ -4,7 +4,9 @@ JobHub is a Kotlin Multiplatform application for browsing job listings across An
 Desktop. Built with Compose Multiplatform, it provides a consistent and beautiful user interface
 across all platforms.
 
-![JobHub Screenshot](screenshots/placeholder.png)
+![JobHub Screenshot1](screens/screen1.png)
+![JobHub Screenshot2](screens/screen2.png)
+
 
 ## Features
 

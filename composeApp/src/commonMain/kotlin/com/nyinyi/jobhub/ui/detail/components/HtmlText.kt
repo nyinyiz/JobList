@@ -3,6 +3,7 @@ package com.nyinyi.jobhub.ui.detail.components
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -10,10 +11,23 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import com.fleeksoft.ksoup.Ksoup
+import com.mikepenz.markdown.m3.Markdown
 
 
 @Composable
 fun HtmlText(html: String) {
+    val markdown = remember(html) {
+        Ksoup.parse(html).text()
+    }
+
+    Markdown(
+        content = markdown
+    )
+}
+
+@Composable
+fun TextViewWithHtml(html: String) {
     Text(
         buildAnnotatedString {
             val regex = Regex("<(\\w+)(?: href=['\"](.*?)['\"])?>(.*?)</\\1>")

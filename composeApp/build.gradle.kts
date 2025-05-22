@@ -51,7 +51,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-            // 
+            // HTML
+            implementation("com.fleeksoft.ksoup:ksoup:0.2.3")
+            implementation("com.mikepenz:multiplatform-markdown-renderer-m3:0.34.0")
+            // DateTime
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
 
             // koin

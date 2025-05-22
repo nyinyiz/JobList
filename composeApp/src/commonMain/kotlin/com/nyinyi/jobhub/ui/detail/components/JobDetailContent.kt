@@ -1,10 +1,5 @@
 package com.nyinyi.jobhub.ui.detail.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -71,157 +67,152 @@ fun JobDetailContent(
         isContentVisible = true
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Background gradient
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            MaterialTheme.colorScheme.surface,
-                            MaterialTheme.colorScheme.surface,
-                            MaterialTheme.colorScheme.background,
-                        )
-                    )
-                )
-        )
-
-        // Main content
-        Column(modifier = Modifier.fillMaxSize()) {
-            // Header with company info
+    Scaffold { paddingValues ->
+        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
+            // Background gradient
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(headerHeightPx)
-                    .graphicsLayer {
-                        alpha = headerAlpha
-                        scaleX = headerScale
-                        scaleY = headerScale
-                    }
-            ) {
-                // Background gradient
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            brush = Brush.linearGradient(
-                                colors = listOf(
-                                    MaterialTheme.colorScheme.primary,
-                                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
-                                )
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                MaterialTheme.colorScheme.surface,
+                                MaterialTheme.colorScheme.surface,
+                                MaterialTheme.colorScheme.background,
                             )
                         )
-                )
+                    )
+            )
 
-                // Company info
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
+            // Main content
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Header with company info
+                Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 24.dp, vertical = 48.dp)
+                        .fillMaxWidth()
+                        .height(headerHeightPx)
+                        .graphicsLayer {
+                            alpha = headerAlpha
+                            scaleX = headerScale
+                            scaleY = headerScale
+                        }
                 ) {
+                    // Background gradient
                     Box(
                         modifier = Modifier
-                            .size(80.dp)
-                            .shadow(
-                                elevation = 8.dp,
-                                shape = CircleShape,
-                                spotColor = MaterialTheme.colorScheme.primary
-                            )
-                            .clip(CircleShape)
+                            .fillMaxSize()
                             .background(
-                                brush = Brush.radialGradient(
+                                brush = Brush.linearGradient(
                                     colors = listOf(
-                                        MaterialTheme.colorScheme.onPrimary,
-                                        MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f)
+                                        MaterialTheme.colorScheme.primary,
+                                        MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
                                     )
                                 )
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = job.companyName.first().toString().uppercase(),
-                            color = MaterialTheme.colorScheme.primary,
-                            style = MaterialTheme.typography.headlineLarge,
-                            fontWeight = FontWeight.Black
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(
-                        text = job.companyName,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontWeight = FontWeight.Medium
+                            )
                     )
 
-                    Text(
-                        text = job.title,
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        textAlign = TextAlign.Center,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
-                    )
-                }
-
-                // Back button
-                Box(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.TopStart)
-                ) {
-                    FilledIconButton(
-                        onClick = onBackPressed,
+                    // Company info
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
-                            .size(48.dp)
-                            .shadow(4.dp, CircleShape),
-                        colors = IconButtonDefaults.filledIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
-                        )
+                            .fillMaxSize()
+                            .padding(horizontal = 24.dp, vertical = 48.dp)
                     ) {
+                        Box(
+                            modifier = Modifier
+                                .size(80.dp)
+                                .shadow(
+                                    elevation = 8.dp,
+                                    shape = CircleShape,
+                                    spotColor = MaterialTheme.colorScheme.primary
+                                )
+                                .clip(CircleShape)
+                                .background(
+                                    brush = Brush.radialGradient(
+                                        colors = listOf(
+                                            MaterialTheme.colorScheme.onPrimary,
+                                            MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f)
+                                        )
+                                    )
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = job.companyName.first().toString().uppercase(),
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.headlineLarge,
+                                fontWeight = FontWeight.Black
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
                         Text(
-                            "←",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.primary
+                            text = job.companyName,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontWeight = FontWeight.Medium
                         )
+
+                        Text(
+                            text = job.title,
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            textAlign = TextAlign.Center,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+                        )
+                    }
+
+                    // Back button
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopStart)
+                    ) {
+                        FilledIconButton(
+                            onClick = onBackPressed,
+                            modifier = Modifier
+                                .size(48.dp)
+                                .shadow(4.dp, CircleShape),
+                            colors = IconButtonDefaults.filledIconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                            )
+                        ) {
+                            Text(
+                                "←",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+
+                    // Share button
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd)
+                    ) {
+                        FilledIconButton(
+                            onClick = { onShareJob(job) },
+                            modifier = Modifier
+                                .size(48.dp)
+                                .shadow(4.dp, CircleShape),
+                            colors = IconButtonDefaults.filledIconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                            )
+                        ) {
+                            Text(
+                                "↗",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = MaterialTheme.colorScheme.tertiary
+                            )
+                        }
                     }
                 }
 
-                // Share button
-                Box(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.TopEnd)
-                ) {
-                    FilledIconButton(
-                        onClick = { onShareJob(job) },
-                        modifier = Modifier
-                            .size(48.dp)
-                            .shadow(4.dp, CircleShape),
-                        colors = IconButtonDefaults.filledIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
-                        )
-                    ) {
-                        Text(
-                            "↗",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.tertiary
-                        )
-                    }
-                }
-            }
-
-            // Content Cards (scrollable)
-            AnimatedVisibility(
-                visible = isContentVisible,
-                enter = fadeIn(spring(stiffness = Spring.StiffnessMediumLow)) +
-                        slideInVertically(spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 }
-            ) {
                 Box(modifier = Modifier.weight(1f)) {
                     Column(
                         modifier = Modifier

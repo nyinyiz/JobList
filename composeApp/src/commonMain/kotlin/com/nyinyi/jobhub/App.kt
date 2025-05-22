@@ -1,7 +1,5 @@
 package com.nyinyi.jobhub
 
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
@@ -28,8 +26,6 @@ fun App() {
             startDestination = Routes.JobList
         ) {
             composable<Routes.JobList>(
-                exitTransition = { slideOutHorizontally() },
-                popEnterTransition = { slideInHorizontally() }
             ) {
                 JobListScreen(onJobClick = { job ->
                     navController.navigate(
@@ -41,16 +37,6 @@ fun App() {
             }
 
             composable<Routes.JobDetail>(
-                enterTransition = {
-                    slideInHorizontally { initialOffset ->
-                        initialOffset
-                    }
-                },
-                exitTransition = {
-                    slideOutHorizontally { initialOffset ->
-                        initialOffset
-                    }
-                }
             ) { backStackEntry ->
                 val args = backStackEntry.toRoute<Routes.JobDetail>()
                 JobDetailScreen(

@@ -41,6 +41,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
         }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -71,9 +74,7 @@ kotlin {
 
             implementation(libs.kotlinx.serialization.json)
         }
-        nativeMain.dependencies {
-            implementation(libs.ktor.client.darwin)
-        }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

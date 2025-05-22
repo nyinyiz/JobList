@@ -21,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.nyinyi.jobhub.response.Job
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JobTagsCard(job: Job) {

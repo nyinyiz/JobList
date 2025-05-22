@@ -14,7 +14,6 @@ import androidx.compose.ui.text.withStyle
 import com.fleeksoft.ksoup.Ksoup
 import com.mikepenz.markdown.m3.Markdown
 
-
 @Composable
 fun HtmlText(html: String) {
     val markdown = remember(html) {

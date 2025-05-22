@@ -39,12 +39,13 @@ class JobListViewModel(
                                     fallbackJobs,
                                     Clock.System.now().toEpochMilliseconds()
                                 )
-                        }else {
+                        } else {
                             _uiState.value = JobListUiState.Error("No data available")
                         }
                     }
                 } catch (fallbackException: Exception) {
-                    _uiState.value = JobListUiState.Error(fallbackException.message ?: "Unknown error")
+                    _uiState.value =
+                        JobListUiState.Error(fallbackException.message ?: "Unknown error")
                 }
             }
         }
@@ -57,5 +58,6 @@ sealed class JobListUiState {
         val jobs: List<Job>,
         val lastUpdatedTime: Long = Clock.System.now().toEpochMilliseconds()
     ) : JobListUiState()
+
     data class Error(val message: String) : JobListUiState()
 }

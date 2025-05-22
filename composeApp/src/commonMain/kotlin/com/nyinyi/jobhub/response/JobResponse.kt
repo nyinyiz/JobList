@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class Job(
     val slug: String = "",
     @SerialName("company_name") val companyName: String = "",

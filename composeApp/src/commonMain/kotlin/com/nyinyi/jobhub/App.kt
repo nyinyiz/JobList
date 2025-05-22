@@ -25,8 +25,7 @@ fun App() {
             navController = navController,
             startDestination = Routes.JobList
         ) {
-            composable<Routes.JobList>(
-            ) {
+            composable<Routes.JobList> {
                 JobListScreen(onJobClick = { job ->
                     navController.navigate(
                         Routes.JobDetail(
@@ -36,8 +35,7 @@ fun App() {
                 })
             }
 
-            composable<Routes.JobDetail>(
-            ) { backStackEntry ->
+            composable<Routes.JobDetail> { backStackEntry ->
                 val args = backStackEntry.toRoute<Routes.JobDetail>()
                 JobDetailScreen(
                     jobSlug = args.jobId,
